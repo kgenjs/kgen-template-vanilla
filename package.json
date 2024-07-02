@@ -1,6 +1,6 @@
 {
   "name": "@kgenjs/kgen-template-vanilla",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Vanilla JS/TS template for kgen.",
   "main": "dist/index.js",
   "type": "module",
