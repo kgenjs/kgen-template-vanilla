@@ -1,5 +1,5 @@
 {
-  "name": "@kgenjs/kgen-template-vanilla",
+  "name": "@kgen/kgen-template-vanilla",
   "version": "0.0.1",
   "description": "Vanilla JS/TS template for kgen.",
   "main": "dist/index.js",
