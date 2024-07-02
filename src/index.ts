@@ -21,9 +21,14 @@ const eslintPackageJSONTypeScript = {
 
 const prettierPackageJSON = {
   devDependencies: {
+    prettier: '^2.7.1',
+  },
+};
+
+const prettierPackageJSONWithEslint = {
+  devDependencies: {
     'eslint-plugin-prettier': '^4.2.1',
     'eslint-config-prettier': '^8.5.0',
-    prettier: '^2.7.1',
   },
 };
 
@@ -89,6 +94,10 @@ const generateVanilla = async () => {
 
   if (answers.usePrettier) {
     packageJSON = mergeConfig(packageJSON, prettierPackageJSON);
+  }
+
+  if (answers.useESLint && answers.usePrettier) {
+    packageJSON = mergeConfig(packageJSON, prettierPackageJSONWithEslint);
     eslintConfig = mergeConfig(eslintConfig, eslintWithPrettier);
   }
 

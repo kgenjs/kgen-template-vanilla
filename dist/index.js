@@ -14,9 +14,13 @@ const eslintPackageJSONTypeScript = {
 };
 const prettierPackageJSON = {
     devDependencies: {
+        prettier: '^2.7.1',
+    },
+};
+const prettierPackageJSONWithEslint = {
+    devDependencies: {
         'eslint-plugin-prettier': '^4.2.1',
         'eslint-config-prettier': '^8.5.0',
-        prettier: '^2.7.1',
     },
 };
 const eslintWithPrettier = {
@@ -68,6 +72,9 @@ const generateVanilla = async () => {
     }
     if (answers.usePrettier) {
         packageJSON = mergeConfig(packageJSON, prettierPackageJSON);
+    }
+    if (answers.useESLint && answers.usePrettier) {
+        packageJSON = mergeConfig(packageJSON, prettierPackageJSONWithEslint);
         eslintConfig = mergeConfig(eslintConfig, eslintWithPrettier);
     }
     createFromTemplate(answers.name, {
@@ -76,7 +83,8 @@ const generateVanilla = async () => {
             'package-ts.json',
             '.eslintrc-ts.json',
             ...(answers.useTypescript ? ['**/*.js'] : ['**/*.ts', 'tsconfig.json']),
-            ...(!answers.useESLint ? ['.eslintrc.json', '.prettierrc.json'] : []),
+            ...(!answers.useESLint ? ['.eslintrc.json'] : []),
+            ...(!answers.usePrettier ? ['.prettierrc.json'] : []),
         ],
         overrides: Object.assign({ 'package.json': packageJSON }, (answers.useESLint
             ? {
