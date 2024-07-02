@@ -2,6 +2,12 @@ import { createFromTemplate, getPrompt, loadJSONConfig, mergeConfig } from '@kge
 import * as url from 'url';
 import * as path from 'path';
 
+const eslintPackageJSON = {
+  scripts: {
+    lint: 'eslint . --fix',
+  },
+};
+
 const eslintPackageJSONVanilla = {
   devDependencies: {
     eslint: '^7.32.0 || ^8.2.0',
@@ -88,7 +94,10 @@ const generateVanilla = async () => {
   if (answers.useESLint) {
     packageJSON = mergeConfig(
       packageJSON,
-      answers.useTypescript ? eslintPackageJSONTypeScript : eslintPackageJSONVanilla,
+      mergeConfig(
+        eslintPackageJSON,
+        answers.useTypescript ? eslintPackageJSONTypeScript : eslintPackageJSONVanilla,
+      ),
     );
   }
 

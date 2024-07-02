@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "tsc -w",
     "start": "node ./dist/index.js",
-    "build": "tsc",
-    "lint": "eslint . --fix"
+    "build": "tsc"
   },
   "devDependencies": {
     "typescript": "^4.8.4"

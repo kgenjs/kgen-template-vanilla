@@ -1,6 +1,11 @@
 import { createFromTemplate, getPrompt, loadJSONConfig, mergeConfig } from '@kgen/core';
 import * as url from 'url';
 import * as path from 'path';
+const eslintPackageJSON = {
+    scripts: {
+        lint: 'eslint . --fix',
+    },
+};
 const eslintPackageJSONVanilla = {
     devDependencies: {
         eslint: '^7.32.0 || ^8.2.0',
@@ -68,7 +73,7 @@ const generateVanilla = async () => {
     let eslintConfig = loadJSONConfig(path.join(TEMPLATE_PATH, answers.useTypescript ? '.eslintrc-ts.json' : '.eslintrc.json'));
     packageJSON.name = answers.name;
     if (answers.useESLint) {
-        packageJSON = mergeConfig(packageJSON, answers.useTypescript ? eslintPackageJSONTypeScript : eslintPackageJSONVanilla);
+        packageJSON = mergeConfig(packageJSON, mergeConfig(eslintPackageJSON, answers.useTypescript ? eslintPackageJSONTypeScript : eslintPackageJSONVanilla));
     }
     if (answers.usePrettier) {
         packageJSON = mergeConfig(packageJSON, prettierPackageJSON);
